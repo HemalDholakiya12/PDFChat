@@ -2,6 +2,8 @@
 
 import { useState, useCallback, useEffect } from "react";
 import axios from "axios";
+import Head from "next/head"; // ⬅️ Added for setting page title in browser
+import { FaUpload, FaQuestionCircle } from 'react-icons/fa'; // ⬅️ Import Font Awesome icons
 
 export default function Home() {
   const [file, setFile] = useState(null);
@@ -12,12 +14,10 @@ export default function Home() {
   const [pdfUrl, setPdfUrl] = useState(null);
   const [hasMounted, setHasMounted] = useState(false);
 
-  // Set hasMounted to true after initial client-side render
   useEffect(() => {
     setHasMounted(true);
   }, []);
 
-  // Only create object URL after mounting
   useEffect(() => {
     if (!hasMounted || !file) return;
 
@@ -74,37 +74,41 @@ export default function Home() {
     }
   }, [question]);
 
-  // Avoid rendering anything that uses browser-only APIs until mounted
-  if (!hasMounted) {
-    return null;
-  }
+  if (!hasMounted) return null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-6 font-sans text-gray-800">
+    <div className="min-h-screen bg-[#F8FAFC] p-6 font-sans text-[#1F2937] animate-fadeIn">
+      <Head>
+        <title>PDFChat – Intelligent PDF Q&A Assistant</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+          rel="stylesheet"
+        />
+      </Head>
+
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <header className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-blue-900 mb-3">
-            PDF Q&A Assistant
-          </h1>
-          <p className="text-gray-600 text-xl">
-            Upload a PDF, preview it, and ask questions to get intelligent, context-aware answers powered by advanced AI.
+          <h1 className="text-4xl font-bold text-[#1F2937] mb-3 animate-slideUp">PDFChat – PDF Q&A Assistant</h1>
+          <p className="text-[#6B7280] text-xl animate-slideUp">
+            Welcome to <strong>PDFChat</strong> — Upload a PDF, preview it, and ask questions to receive precise and relevant answers, powered by AI.
           </p>
         </header>
 
         {/* File Upload and Preview */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 mb-10 border border-gray-200">
-          <h2 className="text-2xl font-semibold text-blue-900 mb-6">
-            Upload Your Document
+        <div className="bg-white rounded-2xl shadow-md p-8 mb-10 border border-[#E5E7EB] animate-slideUp">
+          <h2 className="text-2xl font-semibold text-[#1F2937] mb-6 flex items-center space-x-2">
+            <FaUpload /> {/* Upload icon */}
+            <span>Upload Your Document</span>
           </h2>
-          <p className="text-gray-600 mb-6 text-base">
-            Please upload a clear, text-based PDF (maximum 10MB) for optimal results.
+          <p className="text-[#6B7280] mb-6 text-base">
+            Please upload a clear, text-based PDF for optimal results.
           </p>
           <div className="space-y-6">
             <label className="block w-full">
-              <span className="text-gray-700 text-sm font-medium mb-2 block">
-                Select PDF File
-              </span>
+              <span className="text-[#6B7280] text-sm font-medium mb-2 block">Select PDF File</span>
               <input
                 type="file"
                 accept=".pdf"
@@ -113,14 +117,14 @@ export default function Home() {
                   setFile(selectedFile);
                   setError(null);
                 }}
-                className="text-gray-800 border border-gray-300 rounded-lg p-3 w-full file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="text-[#1F2937] border border-[#E5E7EB] rounded-lg p-3 w-full file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-[#E0F7FF] file:text-[#3B82F6] hover:file:bg-[#E0F7FF] transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#3B82F6]"
                 aria-label="Upload PDF file"
               />
             </label>
             <button
               onClick={handleUploadPDF}
               disabled={loading}
-              className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 disabled:bg-blue-400 transition-colors duration-200 flex items-center justify-center w-full md:w-auto"
+              className="bg-[#2C3E50] text-white px-8 py-3 rounded-lg hover:bg-[#34495E] disabled:bg-[#BDC3C7] transition-colors duration-200 flex items-center justify-center w-full md:w-auto animate-slideUp"
             >
               {loading ? (
                 <>
@@ -152,10 +156,8 @@ export default function Home() {
             </button>
             {pdfUrl && (
               <div className="mt-6">
-                <h3 className="text-xl font-semibold text-blue-900 mb-4">
-                  PDF Preview
-                </h3>
-                <div className="border border-gray-200 rounded-xl p-6 bg-gray-50 max-h-[500px] overflow-auto">
+                <h3 className="text-xl font-semibold text-[#1F2937] mb-4">PDF Preview</h3>
+                <div className="border border-[#E5E7EB] rounded-xl p-6 bg-[#F9FAFB] max-h-[500px] overflow-auto">
                   <iframe
                     src={pdfUrl}
                     width="100%"
@@ -168,23 +170,22 @@ export default function Home() {
               </div>
             )}
           </div>
-          {error && <p className="text-red-600 text-sm mt-4">{error}</p>}
+          {error && <p className="text-[#DC2626] text-sm mt-4">{error}</p>}
         </div>
 
         {/* Ask Question */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-200">
-          <h2 className="text-2xl font-semibold text-blue-900 mb-6">
-            Ask a Question
+        <div className="bg-white rounded-2xl shadow-md p-8 border border-[#E5E7EB] animate-slideUp">
+          <h2 className="text-2xl font-semibold text-[#1F2937] mb-6 flex items-center space-x-2">
+            <FaQuestionCircle /> {/* Question icon */}
+            <span>Ask a Question</span>
           </h2>
-          <p className="text-gray-600 mb-6 text-base">
+          <p className="text-[#6B7280] mb-6 text-base">
             Enter a question related to the uploaded PDF to receive a detailed response.
           </p>
           <div className="space-y-6">
             <div>
               <label className="block">
-                <span className="text-gray-700 text-sm font-medium mb-2 block">
-                  Your Question
-                </span>
+                <span className="text-[#6B7280] text-sm font-medium mb-2 block">Your Question</span>
               </label>
               <input
                 type="text"
@@ -194,14 +195,14 @@ export default function Home() {
                   setQuestion(e.target.value);
                   setError(null);
                 }}
-                className="text-gray-800 border border-gray-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 disabled:bg-gray-100 disabled:text-gray-500"
+                className="text-[#1F2937] border border-[#E5E7EB] rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-[#2C3E50] transition-colors duration-200 disabled:bg-[#F9FAFB] disabled:text-[#B5B5B5]"
                 aria-label="Enter your question"
                 disabled={!file}
               />
               <button
                 onClick={handleAskQuestion}
                 disabled={loading || !file}
-                className="bg-emerald-600 text-white px-8 py-3 rounded-lg mt-4 hover:bg-emerald-700 disabled:bg-emerald-400 transition-colors duration-200 flex items-center justify-center w-full md:w-auto"
+                className="bg-[#2C3E50] text-white px-8 py-3 rounded-lg mt-4 hover:bg-[#34495E] disabled:bg-[#BDC3C7] transition-colors duration-200 flex items-center justify-center w-full md:w-auto"
               >
                 {loading ? (
                   <>
@@ -232,11 +233,11 @@ export default function Home() {
                 )}
               </button>
             </div>
-            {error && <p className="text-red-600 text-sm mt-4">{error}</p>}
+            {error && <p className="text-[#DC2626] text-sm mt-4">{error}</p>}
             {answer && (
-              <div className="mt-6 p-6 bg-gray-50 rounded-xl border border-gray-200">
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">Answer</h3>
-                <p className="text-gray-700 whitespace-pre-wrap">{answer}</p>
+              <div className="mt-6 p-6 bg-[#F9FAFB] rounded-xl border border-[#E5E7EB] animate-slideUp">
+                <h3 className="text-xl font-semibold text-[#1F2937] mb-4">Answer</h3>
+                <p className="text-[#4B5563] whitespace-pre-wrap">{answer}</p>
               </div>
             )}
           </div>
