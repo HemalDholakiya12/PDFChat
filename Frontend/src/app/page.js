@@ -2,8 +2,8 @@
 
 import { useState, useCallback, useEffect } from "react";
 import axios from "axios";
-import Head from "next/head"; // ⬅️ Added for setting page title in browser
-import { FaUpload, FaQuestionCircle } from 'react-icons/fa'; // ⬅️ Import Font Awesome icons
+import Head from "next/head";
+import { FaUpload, FaQuestionCircle } from 'react-icons/fa'; 
 
 export default function Home() {
   const [file, setFile] = useState(null);
