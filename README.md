@@ -1,7 +1,5 @@
 # PDFChat
 
-# PDF Chat Application
-
 A web-based application that allows users to upload PDF files and interact with them via a question-and-answer interface. This application parses the PDF, generates embeddings for the text, stores them in a vector database (FAISS), and retrieves relevant information using semantic search to provide contextual answers with an AI language model.
 
 ## Features
