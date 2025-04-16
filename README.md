@@ -12,7 +12,7 @@ A web-based application that allows users to upload PDF files and interact with 
 
 ## Tech Stack
 
-- **Frontend**: next.js
+- **Frontend**: Next.js
 - **Backend**: FastAPI
 - **Text Processing**: PyMuPDFLoader, RecursiveCharacterTextSplitter
 - **Embeddings**: HuggingFace MiniLM Model
