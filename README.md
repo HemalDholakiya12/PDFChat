@@ -12,13 +12,12 @@ A web-based application that allows users to upload PDF files and interact with 
 
 ## Tech Stack
 
-- **Frontend**: HTML, CSS, JavaScript
+- **Frontend**: next.js
 - **Backend**: FastAPI
 - **Text Processing**: PyMuPDFLoader, RecursiveCharacterTextSplitter
 - **Embeddings**: HuggingFace MiniLM Model
 - **Vector Search**: FAISS
 - **AI Model**: Llama3 (via Groq)
-- **Deployment**: Docker, Groq Hosting
 
 ## How It Works
 
