@@ -21,7 +21,7 @@ A web-based application that allows users to upload PDF files and interact with 
 
 ## How It Works
 
-The application follows a structured process to handle user-uploaded PDFs and respond to queries. Here’s a high-level flow of the PDF processing and question-answering pipeline:
+This web-application follows a structured process to handle user-uploaded PDFs and respond to queries. Here’s a high-level flow of the PDF processing and question-answering pipeline:
 
 ```mermaid
 flowchart TD
